@@ -163,36 +163,44 @@ function onBillDeleteComplete(response, status)
 
 function validateBillForm()
 {
-		/*// Month
+		
+		if ($("#power_consumption_ID").val().trim() == "")
+		{
+			return "Select Power Consumption ID";
+		}
+		
+		if ($("#User_Name").val().trim() == "")
+		{
+			return "Select a User's Name";
+		}
+		
 		if ($("#month").val().trim() == "")
 		{
-			return "Insert Month!!";
+			return "Insert Month here";
 		}
 		
-		// Previous Month Reading
-		if ($("#premonreading").val().trim() == "")
+		if ($("#monthly_units").val().trim() == "")
 		{
-			return "Insert Previous Month Reading!!";
+			return "Insert Monthly Units here";
 		}
 		
-		// Current Month Reading
-		if ($("#curmonreading").val().trim() == "")
+		if ($("#rate").val().trim() == "")
 		{
-			return "Insert Current Month Reading!!";
+			return "Insert Rate per Month here";
 		}
 		
-		// is numerical value
-		var premonreading = $("#premonreading").val().trim();
-		if (!$.isNumeric(premonreading))
+		// Numerical value insertions
+		var monthly_units = $("#monthly_units").val().trim();
+		if (!$.isNumeric(monthly_units))
 		{
-			return "Invalid Previous Month Reading (Please enter a number)";
+			return "Invalid Month Reading (Please enter a Number)";
 		}
 		
-		var curmonreading = $("#curmonreading").val().trim();
-		if (!$.isNumeric(curmonreading))
+		var rate = $("#rate").val().trim();
+		if (!$.isNumeric(rate))
 		{
-			return "Invalid Current Month Reading (Please enter a number)";
-		}*/
+			return "Invalid Rate (Please Enter a Number)";
+		}
 		
 		return true;
 				
