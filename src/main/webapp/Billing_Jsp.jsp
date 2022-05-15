@@ -31,7 +31,11 @@
 		
 		<!--------------------- Start of form  ------------------------------->
 		<form id="formCon" name="formCon">
-			
+			<!-- 
+            <input id = "power_consumption_ID" name = "power_consumption_ID" class="form-control form-control-sm">
+            <br>
+            <input id = "User_Name" name = "User_Name" class="form-control form-control-sm"> -->
+            
             
             <select id = "power_consumption_ID" name = "power_consumption_ID" class="form-control form-control-sm">
             	<option class="dropdown-menu">Consumption ID</option>
@@ -75,7 +79,7 @@
                     			
                    		}
                    	%>
-            </select>
+            </select> 
 			<br>
 			<input id="NIC" name="NIC" type="text" class="form-control form-control-sm" placeholder="NIC">
 			
@@ -84,7 +88,7 @@
 			<input id="address" name="address" type="text" class="form-control form-control-sm" placeholder="Address">
 				
 			<br>
-			<input id="month" name="month" type="month" class="form-control form-control-sm" placeholder="Month">
+			<input id="month" name="month" type="text" class="form-control form-control-sm" placeholder="Month">
 			<br> 
             
             <input id="monthly_units" name=monthly_units type="text" class="form-control form-control-sm" placeholder="Monthly Units">
@@ -93,7 +97,7 @@
 			<input id="rate" name="rate" type="text" class="form-control form-control-sm" placeholder="Rate">
 			<br> 
             
-			<input id="btnSave" name="btnSave" type="button" value="Add Bill" class="btn btn-primary">
+			<input id="btnSave" name="btnSave" type="button" value="Save Bill" class="btn btn-primary">
 			
 			<!-- Hold Bill ID for Update operation -->
             <input type="hidden" id="hidBillIDSave" name="hidBillIDSave" value="">

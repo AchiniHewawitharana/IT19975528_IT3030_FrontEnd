@@ -42,6 +42,7 @@ public class billingAPI extends HttpServlet {
 		 // Read the values from the Form
 		
 		String output = billObj.insertBill( 
+				request.getParameter("hidBillIDSave"),
 				request.getParameter("power_consumption_ID"),
 				request.getParameter("User_Name"), 
 				request.getParameter("NIC"), 

@@ -99,7 +99,13 @@ $(document).on("click", ".btnUpdate", function(event)
 {
 	$("#hidBillIDSave").val($(this).data("billid"));
 	
-	$("#rate").val($(this).closest("tr").find('td:eq(0)').text());
+	$("#power_consumption_ID").val($(this).closest("tr").find('td:eq(1)').text());
+	$("#User_Name").val($(this).closest("tr").find('td:eq(2)').text());
+	$("#NIC").val($(this).closest("tr").find('td:eq(3)').text());
+	$("#address").val($(this).closest("tr").find('td:eq(4)').text());
+	$("#month").val($(this).closest("tr").find('td:eq(5)').text());
+	$("#monthly_units").val($(this).closest("tr").find('td:eq(6)').text());
+	$("#rate").val($(this).closest("tr").find('td:eq(7)').text());
 	
 });
 
@@ -154,10 +160,10 @@ function onBillDeleteComplete(response, status)
 
 //========== VALIDATION ================================================
 
-/*
+
 function validateBillForm()
 {
-		// Month
+		/*// Month
 		if ($("#month").val().trim() == "")
 		{
 			return "Insert Month!!";
@@ -186,10 +192,9 @@ function validateBillForm()
 		if (!$.isNumeric(curmonreading))
 		{
 			return "Invalid Current Month Reading (Please enter a number)";
-		}
+		}*/
 		
 		return true;
 				
 }
 
-*/

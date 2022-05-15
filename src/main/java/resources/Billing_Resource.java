@@ -57,7 +57,7 @@ public class Billing_Resource {
 			
 				// Add into the html table
 				
-				/*output += "<tr><td>" + bill_ID + "</td>";*/
+				output += "<tr><td>" + bill_ID + "</td>";
 				output += "<td>" + power_consumption_ID + "</td>";
 				output += "<td>" + User_Name + "</td>";
 				output += "<td>" + NIC + "</td>";
@@ -176,7 +176,7 @@ public class Billing_Resource {
 	
 	// INSERT
 	
-	public String insertBill(String power_consumption_ID, String User_Name, String NIC, String address, String month, String monthly_units, String rate){
+	public String insertBill(String bill_ID, String power_consumption_ID, String User_Name, String NIC, String address, String month, String monthly_units, String rate){
 		
 		String output = "";
 	
