@@ -1,13 +1,25 @@
-$(document).ready(function()
+
+
+/*$(document).ready(function()
 {
 	if ($("#alertSuccess").text().trim() == ""){
 		$("#alertSuccess").hide();
 	}
 	
 	$("#alertError").hide();
-});
+});*/
+	
+$(document).ready(function() 
+{ 
+	 $("#alertSuccess").hide(); 
+	 $("#alertError").hide(); 
+}); 
+
 	
 //SAVE ============================================
+// add a click event handler for the Save button 
+
+
 $(document).on("click", "#btnSave", function(event)
 {
 	// Clear alerts---------------------
@@ -17,7 +29,7 @@ $(document).on("click", "#btnSave", function(event)
 	$("#alertError").hide();
 		
 	// Form validation-------------------
-	var status = validateConceptForm();
+	var status = validateBillForm();
 	if (status != true){
 		$("#alertError").text(status);
 		$("#alertError").show();
@@ -25,22 +37,24 @@ $(document).on("click", "#btnSave", function(event)
 	}
 		
 	// If valid------------------------
-	var type = ($("#hidConIDSave").val() == "") ? "POST" : "PUT";
+	var type = ($("#hidBillIDSave").val() == "") ? "POST" : "PUT";
+	
 	$.ajax(
+		
 	{
-		url : "ConsumptionAPI",
+		url : "billingAPI",
 		type : type,
 		data : $("#formCon").serialize(),
 		dataType : "text",
 		complete : function(response, status){
-			onConceptSaveComplete(response.responseText, status);
+			onBillSaveComplete(response.responseText, status);
 		}
 		});
 });
 
 
 
-function onConsumptionSaveComplete(response, status)
+function onBillSaveComplete(response, status)
 {
 	if (status == "success")
 	{
@@ -50,35 +64,43 @@ function onConsumptionSaveComplete(response, status)
 		{
 			$("#alertSuccess").text("Successfully saved.");
 			$("#alertSuccess").show();
-			$("#divItemsGrid").html(resultSet.data);
-		} else if (resultSet.status.trim() == "error")
+			
+			$("#divItemsGrid").html(resultSet.data);	
+		} 
+		
+		else if (resultSet.status.trim() == "error")
 		{
 			$("#alertError").text(resultSet.data);
 			$("#alertError").show();
 		}
-		} else if (status == "error")
-		{
-			$("#alertError").text("Error while saving.");
-			$("#alertError").show();
-		} else
-		{
-			$("#alertError").text("Unknown error while saving..");
-			$("#alertError").show();
+	} 
+		
+	else if (status == "error")
+	{
+		$("#alertError").text("Error while saving.");
+		$("#alertError").show();
+	} 
+	
+	else
+	{
+		$("#alertError").text("Unknown error while saving..");
+		$("#alertError").show();
 	}
-		$("#hidConIDSave").val("");
-		$("#formCon")[0].reset();
+	
+	$("#hidBillIDSave").val("");
+	$("#formCon")[0].reset();
 }
 
 
 
 //UPDATE==========================================
+
 $(document).on("click", ".btnUpdate", function(event)
 {
-	$("#hidConIDSave").val($(this).data("conceptcode"));
-	$("#userID").val($(this).closest("tr").find('td:eq(1)').text());
-	$("#month").val($(this).closest("tr").find('td:eq(2)').text());
-	$("#premonreading").val($(this).closest("tr").find('td:eq(3)').text());
-	$("#curmonreading").val($(this).closest("tr").find('td:eq(4)').text());
+	$("#hidBillIDSave").val($(this).data("billid"));
+	
+	$("#rate").val($(this).closest("tr").find('td:eq(0)').text());
+	
 });
 
 
@@ -87,19 +109,19 @@ $(document).on("click", ".btnRemove", function(event)
 		{
 			$.ajax(
 			{
-				url : "ConsumptionAPI",
+				url : "billingAPI",
 				type : "DELETE",
-				data : "conID=" + $(this).data("conID"),
+				data : "bill_ID=" + $(this).data("billid"),
 				dataType : "text",
 				complete : function(response, status)
 				{
-					onItemDeleteComplete(response.responseText, status);
+					onBillDeleteComplete(response.responseText, status);
 				}
 			});
 });
 
 
-function onItemDeleteComplete(response, status)
+function onBillDeleteComplete(response, status)
 {
 	if (status == "success")
 	{
@@ -114,20 +136,26 @@ function onItemDeleteComplete(response, status)
 			$("#alertError").text(resultSet.data);
 			$("#alertError").show();
 		}
-		} else if (status == "error")
-		{
-			$("#alertError").text("Error while deleting.");
-			$("#alertError").show();
-		} else
-		{
-			$("#alertError").text("Unknown error while deleting..");
-			$("#alertError").show();
+	} 
+	
+	else if (status == "error")
+	{
+		$("#alertError").text("Error while deleting.");
+		$("#alertError").show();
+	} 
+	
+	else
+	{
+		$("#alertError").text("Unknown error while deleting..");
+		$("#alertError").show();
 	}
 }
 
 
 //========== VALIDATION ================================================
-function validateConsumptionForm()
+
+/*
+function validateBillForm()
 {
 		// Month
 		if ($("#month").val().trim() == "")
@@ -161,4 +189,7 @@ function validateConsumptionForm()
 		}
 		
 		return true;
+				
 }
+
+*/

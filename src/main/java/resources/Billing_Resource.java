@@ -56,7 +56,8 @@ public class Billing_Resource {
 				String amount = Double.toString(rs.getDouble("amount"));
 			
 				// Add into the html table
-				output += "<tr><td>" + bill_ID + "</td>";
+				
+				/*output += "<tr><td>" + bill_ID + "</td>";*/
 				output += "<td>" + power_consumption_ID + "</td>";
 				output += "<td>" + User_Name + "</td>";
 				output += "<td>" + NIC + "</td>";
@@ -67,11 +68,13 @@ public class Billing_Resource {
 				output += "<td>" + amount + "</td>";
 			
 				// buttons
-				output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>" 
-				+ "<td><form method='post' action='items.jsp'>" 
-				+ "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
-				+ "<input name='itemID' type='hidden' value='" + bill_ID + "'>" + "</form></td></tr>";
-			}
+				 output += "<td><input name='btnUpdate' type='button' value='Update' "
+							+ "class='btnUpdate btn btn-secondary' data-billid='" +bill_ID + "'></td>"
+							+ "<td><input name='btnRemove' type='button' value='Remove' "
+							+ "class='btnRemove btn btn-danger' data-billid='" + bill_ID + "'></td></tr>"; 
+			 }
+						
+			
 			
 			con.close();
 			
@@ -212,12 +215,19 @@ public class Billing_Resource {
 			// execute the statement
 			preparedStmt.execute();
 			con.close();
-			output = "New Bill Record inserted successfully";
+			//output = "New Bill Record inserted successfully";
+			
+			
+			//  call the readItems() method and get the updated grid and embed the HTML into the JSON object. 
+			
+			String newBills = viewAllBills();
+			output = "{\"status\":\"success\", \"data\": \"" + newBills + "\"}";
 			
 		}catch (Exception e){
-			output = "Error while inserting the New Bill Record.";
+			output = "{\"status\":\"error\", \"data\":\"Error while Inserting New Bill.\"}";
 			System.err.println(e.getMessage());
 		}
+				
 			
 		return output;
 		
@@ -225,7 +235,7 @@ public class Billing_Resource {
 	
 	// UPDATE
 	
-	public String updateBill(String bill_ID, String rate) {
+	public String updateBill(String bill_ID, String power_consumption_ID, String User_Name, String NIC, String address, String month, String monthly_units, String rate) {
 		
 		//boolean rs = false;
 		String output = "";
@@ -239,36 +249,36 @@ public class Billing_Resource {
 			}
 		
 			// create a prepared statement
-			String query = "UPDATE electrogrid.billing SET rate=? WHERE bill_ID=?";
+			String query = "UPDATE electrogrid.billing SET power_consumption_ID = ?, User_Name = ?, NIC = ? , address = ?, month = ?, monthly_units = ?, rate = ? WHERE bill_ID=?";
+			
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 		
-			/*
-			String query2 = "select monthly_units  from billing WHERE bill_ID ='"+bill_ID+"' ";
-			Statement stmt = con.createStatement();
-			ResultSet rs2 = stmt.executeQuery(query2);
-			String monthly_units = Integer.toString(rs2.getInt("monthly_units"));
-			
-			double  tot_amount;
-			tot_amount = (Integer.valueOf(monthly_units) * Integer.valueOf(rate));
-			preparedStmt.setDouble(2, tot_amount);
-		
-			preparedStmt.setInt(3, Integer.parseInt(bill_ID));
-			
-			*/
 			
 			// binding values
-			preparedStmt.setInt(1, Integer.parseInt(rate));			
-			preparedStmt.setInt(2, Integer.parseInt(bill_ID));
+			
+			preparedStmt.setInt(1, Integer.parseInt(power_consumption_ID));
+			preparedStmt.setString(2, User_Name);
+			preparedStmt.setString(3, NIC);
+			preparedStmt.setString(4, address);
+			preparedStmt.setString(5, month);
+			preparedStmt.setInt(6, Integer.parseInt(monthly_units));
+			preparedStmt.setInt(7, Integer.parseInt(rate));		
+			preparedStmt.setInt(8, Integer.parseInt(bill_ID));
 			
 			// execute the statement
 			preparedStmt.execute();
 			
 			con.close();
-			output = "Bill Record updated successfully";
-		
+			//output = "Bill Record updated successfully";
+			
+		//  call the readItems() method and get the updated grid and embed the HTML into the JSON object.
+			
+			String newBills = viewAllBills();
+			output = "{\"status\":\"success\", \"data\": \"" + newBills + "\"}";
+			
 		
 		}catch (Exception e){
-			output = "Error while updating the Bill Record.";
+			output = "{\"status\":\"error\", \"data\":\"Error while Updating the Bill\"}";
 			System.err.println(e.getMessage());
 		}
 		
@@ -302,11 +312,16 @@ public class Billing_Resource {
 			preparedStmt.execute();
 
 			con.close();
-			output = "Bill Record deleted successfully";
+			//output = "Bill Record deleted successfully";
+			
+			
+		//  call the readItems() method and get the updated grid and embed the HTML into the JSON object.
+			
+			String newBills = viewAllBills();
+			output = "{\"status\":\"success\", \"data\": \"" + newBills + "\"}";
 			
 		}catch (Exception e){
-			
-			output = "Error while deleting the Bill Record.";
+			output = "{\"status\":\"error\", \"data\":\"Error while Deleting the Bill.\"}";
 			System.err.println(e.getMessage());
 		}
 		
